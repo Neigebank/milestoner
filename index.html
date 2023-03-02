@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+    <html>
+        <title>Milestone Madness</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </html>
+
+    <body style="margin: 20px 10px 20px 10px">
+        <div class="cent" id="startDiv">
+            <button id="startButton" onclick="player.other.started = true">Start generating points.</button>
+            <br><br>
+        </div>
+        <div id="main" style="display: none;">
+            <p class="cent">You have <span id="points">0</span> points.</p>
+            <p class="cent">You are currently generating <span id="pps">0</span> points per second.</p>
+            <br>
+            <div id="tabButtons" class="cent">
+                <button class="tabButton">Main</button>
+                <button class="tabButton">Options</button>
+                <button class="tabButton">Statistics</button>
+            </div>
+            <br>
+            <div id="mainTab" class="cent" style="overflow: hidden">
+                <button id="upgradeButton" class="cent ulocked" onclick="buyMUpg()">Buy this upgrade.<br>Level <span id="upgLvl"><b class="bg1">0</b></span><br><span id="upgCst"><b class="bg1">10.00</b></span> points</button>
+                <br>
+                <br>
+                <br>
+                <div id="mscontain" class="dcent">
+                    <!-- Stuff gets added here from main.js script.-->
+                </div>
+            </div>
+        </div>
+
+        <script src="ExpantaNum.js"></script>
+        <script src="main.js"></script>
+    </body>
+</head>
