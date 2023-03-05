@@ -6,6 +6,7 @@
     --hue2-2: 0;
     --huem1: 100;
     --huem2: 0;
+    --hapcol: 260;
 }
 
 
@@ -32,6 +33,10 @@ p {
 
 .bg1 {
     font-size: 20px;
+}
+
+br {
+    font-size: 50%;
 }
 
 #points {
@@ -112,13 +117,34 @@ p {
 .mt1 {
     background-image: repeating-linear-gradient(-45deg, hsl(var(--huem1), 100%, 5%), hsl(var(--huem1), 100%, 5%) 20px, hsl(var(--huem1), 100%, 6%) 20px, hsl(var(--huem1), 100%, 6%) 40px);
     border: 2px solid hsl(var(--huem1), 85%, 65%);
+}
+
+.mttc1 {
     color: hsl(var(--huem1), 85%, 65%);
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 
 .mt2 {
     background-image: repeating-linear-gradient(-45deg, hsl(var(--huem2), 100%, 5%), hsl(var(--huem2), 100%, 5%) 20px, hsl(var(--huem2), 100%, 6%) 20px, hsl(var(--huem2), 100%, 6%) 40px);
     border: 2px solid hsl(var(--huem2), 85%, 65%);
+}
+
+.mttc2 {
     color: hsl(var(--huem2), 85%, 65%);
+}
+
+.mti {
+    border: 2px solid hsl(var(--hapcol), 100%, 70%);
+    background-color: hsl(var(--hapcol), 100%, 10%);
+}
+
+.emp {
+    font-size: 145%;
+    text-shadow: 0px 0px 4px;
 }
 
 .mtype {
@@ -158,7 +184,7 @@ p {
 #mscontain {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 45vh;
+    height: 50vh;
     width: min-content;
     padding-top: 7px;
     scrollbar-color: rgb(255, 255, 255) rgb(15, 15, 15);
@@ -185,12 +211,45 @@ p {
 .mileinv {
     width: 275px;
     min-height: 0px;
-    padding: 0px 5px 0px 5px;
+    padding: 5px 5px 5px 5px;
     vertical-align: middle;
     margin: 0px 7px 0px 4px;
     border-radius: 4px;
     transition-duration: 200ms;
     margin-bottom: 5px;
-    display: flex;
-    align-items: center;
+}
+
+.invButton {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 1px;
+    width: 65%;
+    height: 22%;
+    font-family: Source Code Pro;
+    cursor: pointer;
+    transition-duration: 150ms;
+}
+
+.invButton:hover {
+    background-color: white;
+    color: black;
+}
+
+.dmbutton {
+    color: white;
+    border: 2px solid white;
+    border-radius: 2px;
+    background-color: black;
+    width: 100px;
+    height: 40px;
+    font-family: Source Code Pro;
+    transition-duration: 150ms;
+    cursor: pointer;
+    font-size: 20px
+}
+
+.dmbutton:hover {
+    color: black;
+    background-color: white;
 }

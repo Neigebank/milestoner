@@ -16,23 +16,33 @@
             <p class="cent">You are currently generating <span id="pps">0</span> points per second.</p>
             <br>
             <div id="tabButtons" class="cent">
-                <button class="tabButton">Main</button>
-                <button class="tabButton">Options</button>
-                <button class="tabButton">Statistics</button>
+                <button class="tabButton" onclick="changeTab('main')">Main</button>
+                <button class="tabButton" onclick="changeTab('options')">Options</button>
+                <button class="tabButton" onclick="changeTab('stats')">Statistics</button>
             </div>
             <br>
-            <div id="mainTab" class="cent" style="overflow: hidden">
+            <div id="mainTab" class="cent" style="display: none;">
                 <button id="upgradeButton" class="cent ulocked" onclick="buyMUpg()">Buy this upgrade.<br>Level <span id="upgLvl"><b class="bg1">0</b></span><br><span id="upgCst"><b class="bg1">10.00</b></span> points</button>
                 <br>
                 <br>
                 <br>
+                <!-- <p class="cent"><b>You can scroll to see the other milestones.</b></p> -->
                 <div id="mscontain" class="dcent">
                     <!-- Stuff gets added here from main.js script.-->
                 </div>
             </div>
+            <div id="optionsTab" class="cent">
+                <button class="dmbutton">Import</button> <!-- "dm" means Data Management-->
+                <button class="dmbutton">Export</button>
+            </div>
+            <div id="statsTab" class="cent" style="display: none">
+                <p>In total, you have gained <span id="atpoints">x</span> points.</p>
+                <p>The most points you have gotten is <span id="bestpoints">x</span> points.</p>
+                <p>You have played this game for <span id="timeplayed">x</span> seconds.</p>
+            </div>
         </div>
 
-        <script src="ExpantaNum.js"></script>
+        <script src="pastinf/break_eternity.js"></script>
         <script src="main.js"></script>
     </body>
 </head>
