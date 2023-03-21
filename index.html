@@ -7,11 +7,7 @@
     </html>
 
     <body style="margin: 20px 10px 20px 10px">
-        <div class="cent" id="startDiv">
-            <button id="startButton" onclick="player.other.started = true">Start generating points.</button>
-            <br><br>
-        </div>
-        <div id="main" style="display: none;">
+        <div id="main">
             <p class="cent">You have <span id="points">0</span> points.</p>
             <p class="cent">You are currently generating <span id="pps">0</span> points per second.</p>
             <br>
@@ -30,10 +26,15 @@
                 <div id="mscontain" class="dcent">
                     <!-- Stuff gets added here from main.js script.-->
                 </div>
+                <br>
+                <p id="requireText">Reach level <span id="lvlreq">30</span> of the main upgrade to unlock a new feature.</p>
             </div>
             <div id="optionsTab" class="cent">
-                <button class="dmbutton">Import</button> <!-- "dm" means Data Management-->
-                <button class="dmbutton">Export</button>
+                <button class="dmbutton" onclick="dm(1)">Export</button> <!-- "dm" means Data Management-->
+                <button class="dmbutton" onclick="dm(2)">Import</button>
+                <br>
+                <br>
+                <textarea class="textBox" id="importText"></textarea>
             </div>
             <div id="statsTab" class="cent" style="display: none">
                 <p>In total, you have gained <span id="atpoints">x</span> points.</p>

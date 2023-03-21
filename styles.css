@@ -253,3 +253,9 @@ br {
     color: black;
     background-color: white;
 }
+
+#importText {
+    width: 300px;
+    height: 60px;
+    font-size: 12px;
+}

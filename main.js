@@ -18,7 +18,7 @@ var player = {
     },
 
     mainUpg: {
-        bght: new be(4),
+        bght: new be(0),
         amnt: new be(10),
         bcst: new be(10),
         cost: undefined,
@@ -36,7 +36,7 @@ var player = {
             },
 
             2: {
-                desc: "Add 0.25 to point production every 2 levels.",
+                desc: "Add 0.35 to point production every 2 levels.",
                 type: 1,
                 reqlevel: new be(2),
                 interval: new be(2),
@@ -47,10 +47,10 @@ var player = {
             },
 
             3: {
-                desc: "Mutliply the power of milestone 1 by &times1.3 every 5 levels.",
+                desc: "Mutliply the power of milestone 1 by &times1.25 every 3 levels.",
                 type: 2,
                 reqlevel: new be(5),
-                interval: new be(5),
+                interval: new be(3),
                 unlocked: false,
                 op: "&times",
                 effect: new be(1),
@@ -58,10 +58,10 @@ var player = {
             },
 
             4: {
-                desc: "Multiply base point generation by &times1.6 every 10 levels.",
+                desc: "Multiply base point generation by &times1.35 every 5 levels.",
                 type: 2,
                 reqlevel: new be(10),
-                interval: new be(10),
+                interval: new be(5),
                 unlocked: false,
                 op: "&times",
                 effect: new be(1),
@@ -69,10 +69,10 @@ var player = {
             },
 
             5: {
-                desc: "Increase base point generation by 1 every 5 levels.",
+                desc: "Increase base point generation by 0.5 every 5 levels.",
                 type: 1,
                 reqlevel: new be(15),
-                interval: new be(5),
+                interval: new be(7),
                 unlocked: false,
                 op: "+",
                 effect: new be(0),
@@ -84,12 +84,11 @@ var player = {
     },
 
     other: {
-        started: true,
-        tabs: {main: false, options: true, stats: false}, // This is the tab visibility array, from left to right on the page (the first one is the main, the second is the options, etc.).
+        tabs: {main: true, options: false, stats: false}, // This is the tab visibility array, from left to right on the page (the first one is the main, the second is the options, etc.).
     },
 
     stats: {
-        augmentations: 1, // Amount of times you augmented. Not an ExpantaNum. Next update... (You can decide to change this to a value that isn't 0 to see what I'm working on. Just use "player.stats.aumgentations = 1" or something)
+        augmentations: 0, // Amount of times you augmented. Not an ExpantaNum. Next update... (You can decide to change this to a value that isn't 0 to see what I'm working on. Just use "player.stats.aumgentations = 1" or something)
         timeplayed: 0, // In seconds.
     }
 }
@@ -111,17 +110,13 @@ var player = {
 function init() {
     for (let i = 1; i < Object.keys(player.mainUpg.milestones).length; i++) {
         let m = player.mainUpg.milestones[i]
-        document.getElementById("mscontain").innerHTML += `<div id="m${i}" style='display: inline-block'><div id=minfo${i} class="milestone mt${m.type} mttc${m.type}"><div class="mtitle" id="m${i}title"></div><div class="mdesc" id="m${i}desc"></div><br id="m${i}br"><div class="meff" id="m${i}eff"></div><div class="mamt" id="m${i}amt"></div><div class="mtype" id="m${i}type"></div></div><div id="minv${i}" class="mileinv mti"><p class="mttci" id="minv${i}desc"></p><p class="mttci">+0.15 → <span class="emp"><b>+0.25</b></span></p><br><button class="invButton">Invest 4 AP.</button></div></div></div>`
+        document.getElementById("mscontain").innerHTML += `<div id="m${i}" style='display: inline-block'><div id=minfo${i} class="milestone mt${m.type} mttc${m.type}"><div class="mtitle" id="m${i}title"></div><div class="mdesc" id="m${i}desc"></div><br id="m${i}br"><div class="meff" id="m${i}eff"></div><div class="mamt" id="m${i}amt"></div><div class="mtype" id="m${i}type"></div></div><div id="minv${i}" class="mileinv mti"><p class="mttci" id="minv${i}desc"></p><p class="mttci" span="mtie${i}">+0.15 → <span class="emp"><b>+0.25</b></span></p><br><button class="invButton">Invest 4 AP.</button></div></div></div>`
         document.getElementById("m" + i + "title").innerHTML = `Reach level ${m.reqlevel} to unlock this milestone.`
         document.getElementById("minv" + i + "desc").innerHTML = "Unlock this milestone to invest."
         document.getElementById("m" + i + "br").style.display = "none"
         document.getElementById("m" + i).style.display = "none"
         document.getElementById("minv" + i).style.display = "none"
     } 
-}
-
-function start() {
-    player.other.started = true
 }
 
 function buyMUpg() {
@@ -155,16 +150,23 @@ function pointGen() {
     }
 
     p = p.add(ea[4])
-    p = p.mul(ea[3])
     p = p.add(ea[0])
     p = p.add(ea[1])
     return p
 }
 
 function increment() {
-    if (player.other.started) {
-        player.currencies.points.amount = player.currencies.points.amount.add(pointGen().div(20))
-        player.currencies.points.total = player.currencies.points.total.add(pointGen().div(20))
+    player.currencies.points.amount = player.currencies.points.amount.add(pointGen().div(20))
+    player.currencies.points.total = player.currencies.points.total.add(pointGen().div(20))
+}
+
+function dm(n) {
+    if (n == 1) {
+        var exp = window.btoa(JSON.stringify(player))
+        navigator.clipboard.writeText(exp).then(() => {
+        alert('Succesfully copied to clipboard.')
+    })} else {
+        player = JSON.parse(window.atob(document.getElementById("importText").value))
     }
 }
 
@@ -191,7 +193,11 @@ function update() {
             document.getElementById("m" + i + "eff").innerHTML = `Currently: ${m.op}${format(m.effect)}`
             document.getElementById("m" + i + "amt").innerHTML = `You have gotten this milestone ${(m.amt.eq(1) ? " once." : m.amt + " times.")}`
             document.getElementById("m" + i + "br").style.display = "" 
-            document.getElementById("m" + i + "type").innerHTML = m.type 
+            switch (m.type) {
+                case 1: {document.getElementById("m" + i + "type").innerHTML = "INCREMENTER"; break}
+                case 2: {document.getElementById("m" + i + "type").innerHTML = "MULTIPLICATOR"; break}
+                default: {document.getElementById("m" + i + "type").innerHTML = "ERROR_NO_TYPE"}
+            }
             document.getElementById("minv" + i + "desc").innerHTML = `Invest all your augmentation points (${player.currencies.augmentation.amount}) into this milestone.`  
         }
     }
@@ -202,17 +208,15 @@ function update() {
 
 
     // List of all the milestone effects and their formulas.
-    player.mainUpg.milestones[3].effect = be.pow(1.3, player.mainUpg.milestones[3].amt)
-    player.mainUpg.milestones[4].effect = be.pow(1.6, player.mainUpg.milestones[4].amt)
+    player.mainUpg.milestones[3].effect = be.pow(1.25, player.mainUpg.milestones[3].amt)
+    player.mainUpg.milestones[4].effect = be.pow(1.35, player.mainUpg.milestones[4].amt)
     player.mainUpg.milestones[1].effect = player.mainUpg.milestones[1].amt.mul(0.15).times(player.mainUpg.milestones[3].effect)
-    player.mainUpg.milestones[2].effect = player.mainUpg.milestones[2].amt.div(4)
-    player.mainUpg.milestones[5].effect = player.mainUpg.milestones[5].amt
+    player.mainUpg.milestones[2].effect = player.mainUpg.milestones[2].amt.mul(0.35)
+    player.mainUpg.milestones[5].effect = player.mainUpg.milestones[5].amt.mul(player.mainUpg.milestones[4].effect)
     
     if (be.gt(player.currencies.points.amount, player.currencies.points.best)) player.currencies.points.best = player.currencies.points.amount
     
     if (be.gte(player.currencies.points.amount, player.mainUpg.cost)) {document.getElementById("upgradeButton").classList.remove("ulocked"); document.getElementById("upgradeButton").classList.add("uunlocked")} else {document.getElementById("upgradeButton").classList.add("ulocked"); document.getElementById("upgradeButton").classList.remove("uunlocked")}
-    if (player.other.started) document.getElementById("startDiv").style.display = "none"
-    if (player.other.started) document.getElementById("main").style.display = "revert";
     document.getElementById("upgLvl").innerHTML = player.mainUpg.bght
     document.getElementById("upgCst").innerHTML = format(player.mainUpg.cost)
     document.getElementById('points').innerHTML = format(player.currencies.points.amount)
