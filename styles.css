@@ -189,7 +189,7 @@ br {
     padding-top: 7px;
     scrollbar-color: rgb(255, 255, 255) rgb(15, 15, 15);
     scroll-behavior: smooth;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.25);
 }
 
 .uunlocked {
@@ -254,8 +254,19 @@ br {
     background-color: white;
 }
 
-#importText {
+#importbox {
     width: 300px;
     height: 60px;
     font-size: 12px;
+}
+
+.textBox {
+    background-color: rgb(26, 26, 26);
+    border: 2px solid white;
+    border-radius: 2px;
+    color: white;
+    font-family: "Source Code Pro";
+    text-align: center;
+    word-wrap: break-word;
+    resize: none;
 }
