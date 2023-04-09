@@ -217,7 +217,6 @@ function update() {
     if (ex.gt(player.currencies.points.amount, player.currencies.points.best)) player.currencies.points.best = player.currencies.points.amount
     
     if (ex.gte(player.currencies.points.amount, player.mainUpg.cost)) {document.getElementById("upgradeButton").classList.remove("ulocked"); document.getElementById("upgradeButton").classList.add("uunlocked")} else {document.getElementById("upgradeButton").classList.add("ulocked"); document.getElementById("upgradeButton").classList.remove("uunlocked")}
-    console.log(player.mainUpg.bght)
     document.getElementById("upgLvl").innerHTML = new ex(player.mainUpg.bght)
     document.getElementById("upgCst").innerHTML = format(player.mainUpg.cost)
     document.getElementById('points').innerHTML = format(player.currencies.points.amount)
