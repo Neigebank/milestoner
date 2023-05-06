@@ -1,9 +1,9 @@
-var ex = EdxpantaNum
+var ex = ExpantaNum
 
 var player = {
     currencies: {
         points: {
-            amount: new ex("0"), // How many points.
+            amount: new ex("1077"), // How many points. 1077 for testing purposes.
             base: new ex("1"),   // Base points gain.
             mult: new ex("1"),   // Multiplies points gain.
             pps: new ex("0"),    // Points per second.
@@ -18,14 +18,14 @@ var player = {
     },
 
     mainUpg: {
-        bght: new ex("0"),
+        bght: new ex("141"),
         amnt: new ex("10"),
         bcst: new ex("10"),
         cost: new ex("10"),
 
         milestones: { // Every milestone has a required level, interval (every how many levels), amount, effect, type, operator
             1: {
-                desc: "Add 0.15 to point production every level.",
+                desc: "After level 1, add 0.15 to point production every level.",
                 type: 1,
                 reqlevel: new ex("1"),
                 interval: new ex("1"),
@@ -36,7 +36,7 @@ var player = {
             },
 
             2: {
-                desc: "Add 0.35 to point production every 2 levels.",
+                desc: "After level 3, add 0.35 to point production every 2 levels.",
                 type: 1,
                 reqlevel: new ex("3"),
                 interval: new ex("2"),
@@ -47,7 +47,7 @@ var player = {
             },
 
             3: {
-                desc: "Mutliply the power of milestone 1 by &times1.25 every 3 levels.",
+                desc: "After level 5, mutliply Milestone 1's power by &times1.2 every 3 levels.",
                 type: 2,
                 reqlevel: new ex("5"),
                 interval: new ex("3"),
@@ -58,7 +58,7 @@ var player = {
             },
 
             4: {
-                desc: "Multiply base point generation by &times1.35 every 5 levels.",
+                desc: "After level 10, multiply overall point generation by &times1.14 every 5 levels.",
                 type: 2,
                 reqlevel: new ex("10"),
                 interval: new ex("5"),
@@ -69,10 +69,10 @@ var player = {
             },
 
             5: {
-                desc: "Increase base point generation by 0.5 every 5 levels.",
+                desc: "After level 15, add 2 to point production every 4 levels.",
                 type: 1,
                 reqlevel: new ex("15"),
-                interval: new ex("7"),
+                interval: new ex("4"),
                 unlocked: false,
                 op: "+",
                 effect: new ex("0"),
@@ -153,6 +153,7 @@ function pointGen() {
     p = p.add(ea[4])
     p = p.add(ea[0])
     p = p.add(ea[1])
+    p = p.mul(ea[3])
     return p
 }
 
@@ -195,7 +196,7 @@ function update() {
             document.getElementById("m" + i + "br").style.display = "" 
             switch (m.type) {
                 case 1: {document.getElementById("m" + i + "type").innerHTML = "INCREMENTER"; break}
-                case 2: {document.getElementById("m" + i + "type").innerHTML = "MULTIPLICATOR"; break}
+                case 2: {document.getElementById("m" + i + "type").innerHTML = "MULTIPLIER"; break}
                 default: {document.getElementById("m" + i + "type").innerHTML = "ERROR_NO_TYPE"}
             }
             document.getElementById("minv" + i + "desc").innerHTML = `Invest all your augmentation points (${player.currencies.augmentation.amount}) into this milestone.`  
@@ -208,16 +209,17 @@ function update() {
 
 
     // List of all the milestone effects and their formulas.
-    player.mainUpg.milestones[3].effect = ex.pow(1.25, player.mainUpg.milestones[3].amt)
-    player.mainUpg.milestones[4].effect = ex.pow(1.35, player.mainUpg.milestones[4].amt)
+    player.mainUpg.milestones[3].effect = ex.pow(1.2, player.mainUpg.milestones[3].amt)
+    player.mainUpg.milestones[4].effect = ex.pow(1.14, player.mainUpg.milestones[4].amt)
     player.mainUpg.milestones[1].effect = ex.mul(player.mainUpg.milestones[1].amt, 0.15).mul(player.mainUpg.milestones[3].effect)
     player.mainUpg.milestones[2].effect = ex.mul(player.mainUpg.milestones[2].amt, 0.35)
-    player.mainUpg.milestones[5].effect = ex.mul(player.mainUpg.milestones[5].amt, player.mainUpg.milestones[4].effect)
+    player.mainUpg.milestones[5].effect = ex.mul(player.mainUpg.milestones[5].amt, 2)
     
     if (ex.gt(player.currencies.points.amount, player.currencies.points.best)) player.currencies.points.best = player.currencies.points.amount
     
     if (ex.gte(player.currencies.points.amount, player.mainUpg.cost)) {document.getElementById("upgradeButton").classList.remove("ulocked"); document.getElementById("upgradeButton").classList.add("uunlocked")} else {document.getElementById("upgradeButton").classList.add("ulocked"); document.getElementById("upgradeButton").classList.remove("uunlocked")}
     document.getElementById("upgLvl").innerHTML = new ex(player.mainUpg.bght)
+    document.getElementById("upgNLvl").innerHTML = new ex(player.mainUpg.bght).add(1)
     document.getElementById("upgCst").innerHTML = format(player.mainUpg.cost)
     document.getElementById('points').innerHTML = format(player.currencies.points.amount)
     document.getElementById('pps').innerHTML = format(pointGen())
