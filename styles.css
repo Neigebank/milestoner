@@ -13,6 +13,10 @@
     --buttoncol3: rgb(80, 80, 80);
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
 
 body {
     font-family: 'Source Code Pro';
@@ -27,18 +31,6 @@ p {
     font-size: 14px;
 }
 
-.cent {
-    text-align: center;
-}
-
-.dcent {
-    margin: auto;
-}
-
-.bg1 {
-    font-size: 20px;
-}
-
 br {
     font-size: 50%;
 }
@@ -48,20 +40,15 @@ br {
     -webkit-text-stroke: 1px;
 }
 
-.tabButton {
-    font-size: 22px;
-    font-family: Source Code Pro;
-    background-color: rgb(36, 36, 36);
-    color: white;
-    border: 2px solid white;
-    border-radius: 2px;
-    transition-duration: 200ms;
-    cursor: pointer;
-}
-
-.tabButton:hover {
-    background-color: white;
-    color: rgb(48, 48, 48);
+#mscontain {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 50vh;
+    width: min-content;
+    padding-top: 7px;
+    scrollbar-color: rgb(255, 255, 255) rgb(15, 15, 15);
+    scroll-behavior: smooth;
+    border: 3px solid rgba(255, 255, 255, 0.25);
 }
 
 #upgradeButton {
@@ -84,6 +71,36 @@ br {
     background-color: var(--buttoncol3);
 }
 
+#importbox {
+    width: 300px;
+    height: 60px;
+    font-size: 12px;
+}
+
+#fixtext {
+    position: fixed;
+    bottom: 0.6%;
+    color: white;
+    transform: skew(-3deg);
+    font-size: 14px;
+}
+
+.cent {
+    text-align: center;
+}
+
+.dcent {
+    margin: auto;
+}
+
+.bg1 {
+    font-size: 20px;
+}
+
+.optxt {
+    opacity: 35%;
+}
+
 .milestone {
     width: 700px;
     min-height: 0px;
@@ -101,11 +118,6 @@ br {
 
 .mttc1 {
     color: hsl(var(--huem1), 50%, 50%);
-}
-
-::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
 }
 
 .mt2 {
@@ -157,17 +169,6 @@ br {
     background-color: black;
     border-color: white;
     color: white;
-}
-
-#mscontain {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 50vh;
-    width: min-content;
-    padding-top: 7px;
-    scrollbar-color: rgb(255, 255, 255) rgb(15, 15, 15);
-    scroll-behavior: smooth;
-    border: 3px solid rgba(255, 255, 255, 0.25);
 }
 
 .uunlocked {
@@ -230,12 +231,6 @@ br {
     background-color: white;
 }
 
-#importbox {
-    width: 300px;
-    height: 60px;
-    font-size: 12px;
-}
-
 .textBox {
     background-color: rgb(26, 26, 26);
     border: 2px solid white;
@@ -245,4 +240,20 @@ br {
     text-align: center;
     word-wrap: break-word;
     resize: none;
+}
+
+.tabButton {
+    font-size: 22px;
+    font-family: Source Code Pro;
+    background-color: rgb(36, 36, 36);
+    color: white;
+    border: 2px solid white;
+    border-radius: 2px;
+    transition-duration: 200ms;
+    cursor: pointer;
+}
+
+.tabButton:hover {
+    background-color: white;
+    color: rgb(48, 48, 48);
 }
