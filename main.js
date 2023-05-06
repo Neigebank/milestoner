@@ -1,4 +1,4 @@
-var ex = ExpantaNum
+var ex = EdxpantaNum
 
 var player = {
     currencies: {
