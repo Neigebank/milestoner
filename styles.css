@@ -18,6 +18,11 @@
     background: transparent; /* make scrollbar transparent */
 }
 
+@keyframes vistoinvis {
+    from {opacity: 100%}
+    to {opacity: 0%}
+}
+
 body {
     font-family: 'Source Code Pro';
     background-color: rgb(15, 15, 15);

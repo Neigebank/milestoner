@@ -170,8 +170,16 @@ function increment(d) {
 function dm(n) {
     if (n === 1) {
         var exp = window.btoa(JSON.stringify(player))
-        navigator.clipboard.writeText(exp).then(() => {
-    })} else {
+        navigator.clipboard.writeText(exp).then(() => {})
+
+        const alert = document.createElement("p")
+        alert.innerText = "\nExport text has been copied to clipboard."
+        alert.classList.add("cent")
+        document.body.appendChild(alert)
+        setTimeout(function() {
+            alert.remove()
+        }, 1700)
+    } else {
         player = JSON.parse(atob(document.getElementById("importbox").value))
     }
 }
