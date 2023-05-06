@@ -3,7 +3,7 @@ var ex = ExpantaNum
 var player = {
     currencies: {
         points: {
-            amount: new ex("10e20"), // How many points. 1077 for testing purposes.
+            amount: new ex("1000"), // How many points. 1077 for testing purposes.
             base: new ex("1"),   // Base points gain.
             mult: new ex("1"),   // Multiplies points gain.
             pps: new ex("0"),    // Points per second.
