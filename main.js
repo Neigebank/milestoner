@@ -3,7 +3,7 @@ var ex = ExpantaNum
 var player = {
     currencies: {
         points: {
-            amount: new ex("1077"), // How many points. 1077 for testing purposes.
+            amount: new ex("10e20"), // How many points. 1077 for testing purposes.
             base: new ex("1"),   // Base points gain.
             mult: new ex("1"),   // Multiplies points gain.
             pps: new ex("0"),    // Points per second.
@@ -18,7 +18,7 @@ var player = {
     },
 
     mainUpg: {
-        bght: new ex("141"),
+        bght: new ex("1"),
         amnt: new ex("10"),
         bcst: new ex("10"),
         cost: new ex("10"),
@@ -137,7 +137,12 @@ function changeTab(tab) {
 }
 
 function format(n) {
-    return new ex(n).toFixed(2)
+    a = n.array
+    if (a[0][1] < 1000) {
+        return n.toFixed(2)
+    } else {
+        return Math.floor(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
 }
 
 function formattime(a) {
