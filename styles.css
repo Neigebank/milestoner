@@ -5,10 +5,23 @@
     --hue2-1: 120;
     --hue2-2: 0;
     --huem1: 100;
-    --huem2: 0;
+    --huem2: 40;
     --hapcol: 260;
+
+    --buttoncol1: rgb(60, 60, 60);
+    --buttoncol2: rgb(90, 90, 90);
+    --buttoncol3: rgb(80, 80, 80);
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+@keyframes vistoinvis {
+    from {opacity: 100%}
+    to {opacity: 0%}
+}
 
 body {
     font-family: 'Source Code Pro';
@@ -19,6 +32,60 @@ p {
     margin: auto;
     color: white;
     font-family: 'Source Code Pro';
+    transform: skew(-3deg);
+    font-size: 14px;
+}
+
+br {
+    font-size: 50%;
+}
+
+#points {
+    font-size: 28px;
+    -webkit-text-stroke: 1px;
+}
+
+#mscontain {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 50vh;
+    width: min-content;
+    padding-top: 7px;
+    scrollbar-color: rgb(255, 255, 255) rgb(15, 15, 15);
+    scroll-behavior: smooth;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+}
+
+#upgradeButton {
+    font-size: 14px;
+    min-width: 200px;
+    min-height: 100px;
+    font-family: Source Code Pro;
+    padding: 4px 10px 4px 10px;
+    transition-duration: 150ms;
+    line-height: 20px;
+    border: 2px solid white;
+    border-radius: 1px;
+}
+
+#upgradeButton.uunlocked:hover {
+    background-color: var(--buttoncol2);
+}
+
+#upgradeButton.uunlocked:active {
+    background-color: var(--buttoncol3);
+}
+
+#importbox {
+    width: 300px;
+    height: 60px;
+    font-size: 12px;
+}
+
+#fixtext {
+    position: fixed;
+    bottom: 0.6%;
+    color: white;
     transform: skew(-3deg);
     font-size: 14px;
 }
@@ -35,73 +102,8 @@ p {
     font-size: 20px;
 }
 
-br {
-    font-size: 50%;
-}
-
-#points {
-    font-size: 28px;
-    -webkit-text-stroke: 1px;
-}
-
-#startButton {
-    font-family: Source Code Pro;
-    font-weight: 700;
-    width: 250px;
-    height: 75px;
-    font-size: 20px;
-    margin-top: 25%;
-    transform: translateY(-100%);
-    background-color: hsl(var(--hue1), 60%, 10%);
-    color: hsl(var(--hue1), 60%, 50%);
-    border: 2px solid hsl(var(--hue1), 60%, 50%);
-    transition-duration: 200ms;
-    cursor: pointer;
-}
-
-#startButton:hover {
-    background-color: white;
-    border-color: white;
-}
-
-.tabButton {
-    font-size: 22px;
-    font-family: Source Code Pro;
-    background-color: rgb(48, 48, 48);
-    color: white;
-    border: 2px solid white;
-    border-radius: 4px;
-    transition-duration: 200ms;
-    cursor: pointer;
-}
-
-.tabButton:hover {
-    background-color: white;
-    color: rgb(48, 48, 48);
-}
-
-.blurry {
-    filter: blur(4px);
-}
-
-#upgradeButton {
-    background-color: black;
-    font-size: 14px;
-    min-width: 200px;
-    min-height: 100px;
-    font-family: Source Code Pro;
-    padding: 4px 10px 4px 10px;
-    transition-duration: 200ms;
-    line-height: 20px;
-    cursor: pointer;
-}
-
-#upgradeButton.uunlocked:hover {
-    background-image: none;
-    background-color: rgb(0, 0, 0);
-    border-color: rgb(255, 255, 255);
-    color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 8px rgb(255, 255, 255);
+.optxt {
+    opacity: 35%;
 }
 
 .milestone {
@@ -115,26 +117,21 @@ br {
 }
 
 .mt1 {
-    background-image: repeating-linear-gradient(-45deg, hsl(var(--huem1), 100%, 5%), hsl(var(--huem1), 100%, 5%) 20px, hsl(var(--huem1), 100%, 6%) 20px, hsl(var(--huem1), 100%, 6%) 40px);
-    border: 2px solid hsl(var(--huem1), 85%, 65%);
+    background-image: repeating-linear-gradient(-45deg, hsl(var(--huem1), 50%, 5%), hsl(var(--huem1), 50%, 5%) 20px, hsl(var(--huem1), 50%, 6%) 20px, hsl(var(--huem1), 50%, 6%) 40px);
+    border: 2px solid hsl(var(--huem1), 50%, 50%);
 }
 
 .mttc1 {
-    color: hsl(var(--huem1), 85%, 65%);
-}
-
-::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
+    color: hsl(var(--huem1), 50%, 50%);
 }
 
 .mt2 {
-    background-image: repeating-linear-gradient(-45deg, hsl(var(--huem2), 100%, 5%), hsl(var(--huem2), 100%, 5%) 20px, hsl(var(--huem2), 100%, 6%) 20px, hsl(var(--huem2), 100%, 6%) 40px);
-    border: 2px solid hsl(var(--huem2), 85%, 65%);
+    background-image: repeating-linear-gradient(-45deg, hsl(var(--huem2), 50%, 5%), hsl(var(--huem2), 50%, 5%) 20px, hsl(var(--huem2), 50%, 6%) 20px, hsl(var(--huem2), 50%, 6%) 40px);
+    border: 2px solid hsl(var(--huem2), 50%, 50%);
 }
 
 .mttc2 {
-    color: hsl(var(--huem2), 85%, 65%);
+    color: hsl(var(--huem2), 50%, 50%);
 }
 
 .mti {
@@ -161,7 +158,6 @@ br {
 .mtitle {
     font-size: 24px;
     -webkit-text-stroke: 1px;
-    text-shadow: 0px 0px 10px;
 }
 
 .mdesc {
@@ -171,7 +167,6 @@ br {
 .meff {
     font-size: 18px;
     -webkit-text-stroke: 1px;
-    text-shadow: 0px 0px 10px;
 }
 
 .mslocked {
@@ -181,31 +176,18 @@ br {
     color: white;
 }
 
-#mscontain {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 50vh;
-    width: min-content;
-    padding-top: 7px;
-    scrollbar-color: rgb(255, 255, 255) rgb(15, 15, 15);
-    scroll-behavior: smooth;
-    border: 3px solid rgba(255, 255, 255, 0.25);
-}
-
 .uunlocked {
-    color: hsl(var(--hue2-1), 75%, 50%);
-    border: 2px solid hsl(var(--hue2-1), 75%, 50%);
-    background-image: repeating-linear-gradient(-45deg, hsl(var(--hue2-1), 100%, 5%), hsl(var(--hue2-1), 100%, 5%) 20px, hsl(var(--hue2-1), 100%, 6%) 20px, hsl(var(--hue2-1), 100%, 6%) 40px);
-    box-shadow: 0px 0px 8px hsl(var(--hue2-1), 75%, 50%);
+    color: white;
+    border: var(--buttoncol1);
+    background-color: var(--buttoncol1);
+    cursor: pointer;
 }
 
 .ulocked {
-    color: hsl(var(--hue2-2), 75%, 50%);
-    border: 2px solid hsl(var(--hue2-2), 75%, 50%);
-    background-image: repeating-linear-gradient(-45deg, hsl(var(--hue2-2), 100%, 5%), hsl(var(--hue2-2), 100%, 5%) 20px, hsl(var(--hue2-2), 100%, 6%) 20px, hsl(var(--hue2-2), 100%, 6%) 40px);
-    box-shadow: 0px 0px 8px hsl(var(--hue2-2), 75%, 50%);
-    cursor:     not-allowed;
-
+    color: white;
+    border-color: var(--buttoncol1);
+    background-color: black;
+    cursor: not-allowed;
 }
 
 .mileinv {
@@ -236,30 +218,6 @@ br {
     color: black;
 }
 
-.dmbutton {
-    color: white;
-    border: 2px solid white;
-    border-radius: 2px;
-    background-color: black;
-    width: 100px;
-    height: 40px;
-    font-family: Source Code Pro;
-    transition-duration: 150ms;
-    cursor: pointer;
-    font-size: 20px
-}
-
-.dmbutton:hover {
-    color: black;
-    background-color: white;
-}
-
-#importbox {
-    width: 300px;
-    height: 60px;
-    font-size: 12px;
-}
-
 .textBox {
     background-color: rgb(26, 26, 26);
     border: 2px solid white;
@@ -270,3 +228,67 @@ br {
     word-wrap: break-word;
     resize: none;
 }
+
+.tabButton {
+    font-size: 22px;
+    font-family: Source Code Pro;
+    background-color: rgb(36, 36, 36);
+    color: white;
+    border: 2px solid white;
+    border-radius: 2px;
+    transition-duration: 200ms;
+    cursor: pointer;
+}
+
+.tabButton:hover {
+    background-color: white;
+    color: rgb(48, 48, 48);
+}
+
+.optButton, .optButton2 {
+    font-family: "Source Code Pro";
+    background-color: rgb(0, 0, 0);
+    border: 2px solid;
+    border-radius: 2px;
+    min-width: 0px;
+    height: 40px;
+    transition-duration: 150ms;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0px 10px 0px 10px;
+}
+
+.optButton:hover {
+    background-color: rgb(54, 54, 54)
+}
+
+.optButton:active {
+    background-color: rgb(41, 41, 41)
+}
+
+.optButton {
+    border-color: white;
+    color: white;
+}
+
+.optButton:hover {
+    background-color: rgb(54, 54, 54)
+}
+
+.optButton:active {
+    background-color: rgb(41, 41, 41)
+}
+
+.optButton2 {
+    border-color: rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
+}
+
+.optButton2:hover {
+    background-color: rgb(54, 0, 0)
+}
+
+.optButton2:active {
+    background-color: rgb(41, 0, 0)
+}
+
