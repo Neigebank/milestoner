@@ -1,119 +1,116 @@
 var ex = ExpantaNum
 
-var player = {
-    currencies: {
-        points: {
-            amount: new ex("1000"), // How many points. 1077 for testing purposes.
-            base: new ex("1"),   // Base points gain.
-            mult: new ex("1"),   // Multiplies points gain.
-            pps: new ex("0"),    // Points per second.
-            total: new ex("0"),
-            best: new ex("0"),
+function startPlayer() {
+    return {
+        currencies: {
+            points: {
+                amount: new ex("10"), // How many points.
+                base: new ex("1"),   // Base points gain.
+                mult: new ex("1"),   // Multiplies points gain.
+                pps: new ex("0"),    // Points per second.
+                total: new ex("0"),
+                best: new ex("0"),
+            },
+
+            augmentation: { // Next update...
+                amount: new ex("4"),
+
+            }
         },
 
-        augmentation: { // Next update...
-            amount: new ex("4"),
+        mainUpg: {
+            bght: new ex("0"),
+            bcst: new ex("10"),
+            cost: new ex("10"),
 
-        }
-    },
+            milestones: { // Every milestone has a required level, interval (every how many levels), amount, effect, type, operator
+                1: {
+                    desc: "After level 1, add 0.15 to point production every level.",
+                    type: 1,
+                    reqlevel: new ex("1"),
+                    interval: new ex("1"),
+                    unlocked: false,
+                    op: "+",
+                    effect: new ex("0"),
+                    amt: new ex("0"),
+                },
 
-    mainUpg: {
-        bght: new ex("1"),
-        amnt: new ex("10"),
-        bcst: new ex("10"),
-        cost: new ex("10"),
+                2: {
+                    desc: "After level 3, add 0.35 to point production every 2 levels.",
+                    type: 1,
+                    reqlevel: new ex("3"),
+                    interval: new ex("2"),
+                    unlocked: false,
+                    op: "+",
+                    effect: new ex("0"),
+                    amt: new ex("0"),
+                },
 
-        milestones: { // Every milestone has a required level, interval (every how many levels), amount, effect, type, operator
-            1: {
-                desc: "After level 1, add 0.15 to point production every level.",
-                type: 1,
-                reqlevel: new ex("1"),
-                interval: new ex("1"),
-                unlocked: false,
-                op: "+",
-                effect: new ex("0"),
-                amt: new ex("0"),
-            },
+                3: {
+                    desc: "After level 5, multiply Milestone 1's power by &times1.2 every 3 levels.",
+                    type: 2,
+                    reqlevel: new ex("5"),
+                    interval: new ex("3"),
+                    unlocked: false,
+                    op: "&times",
+                    effect: new ex("1"),
+                    amt: new ex("0"),
+                },
 
-            2: {
-                desc: "After level 3, add 0.35 to point production every 2 levels.",
-                type: 1,
-                reqlevel: new ex("3"),
-                interval: new ex("2"),
-                unlocked: false,
-                op: "+",
-                effect: new ex("0"),
-                amt: new ex("0"),
-            },
+                4: {
+                    desc: "After level 10, multiply overall point generation by &times1.14 every 5 levels.",
+                    type: 2,
+                    reqlevel: new ex("10"),
+                    interval: new ex("5"),
+                    unlocked: false,
+                    op: "&times",
+                    effect: new ex("1"),
+                    amt: new ex("0")
+                },
 
-            3: {
-                desc: "After level 5, mutliply Milestone 1's power by &times1.2 every 3 levels.",
-                type: 2,
-                reqlevel: new ex("5"),
-                interval: new ex("3"),
-                unlocked: false,
-                op: "&times",
-                effect: new ex("1"),
-                amt: new ex("0"),
-            },
+                5: {
+                    desc: "After level 15, add 2 to point production every 3 levels.",
+                    type: 1,
+                    reqlevel: new ex("15"),
+                    interval: new ex("4"),
+                    unlocked: false,
+                    op: "+",
+                    effect: new ex("0"),
+                    amt: new ex("0"),
+                },
+                
+                shown: [],
+            }
+        },
 
-            4: {
-                desc: "After level 10, multiply overall point generation by &times1.14 every 5 levels.",
-                type: 2,
-                reqlevel: new ex("10"),
-                interval: new ex("5"),
-                unlocked: false,
-                op: "&times",
-                effect: new ex("1"),
-                amt: new ex("0")
-            },
+        stats: {
+            augmentations: 0, // Amount of times you augmented. Not an ExpantaNum. Next update... (You can decide to change this to a value that isn't 0 to see what I'm working on. Just use "player.stats.aumgentations = 1" or something)
+            timeplayed: 0, // In seconds.
+        },
 
-            5: {
-                desc: "After level 15, add 2 to point production every 4 levels.",
-                type: 1,
-                reqlevel: new ex("15"),
-                interval: new ex("4"),
-                unlocked: false,
-                op: "+",
-                effect: new ex("0"),
-                amt: new ex("0"),
-            },
-            
-            shown: [],
-        }
-    },
-
-    other: {
-        tabs: {main: true, options: false, stats: false}, // This is the tab visibility array, from left to right on the page (the first one is the main, the second is the options, etc.).
-    },
-
-    stats: {
-        augmentations: 0, // Amount of times you augmented. Not an ExpantaNum. Next update... (You can decide to change this to a value that isn't 0 to see what I'm working on. Just use "player.stats.aumgentations = 1" or something)
-        timeplayed: 0, // In seconds.
+        autosaving: false,
     }
 }
 
+var notPlayer = {
+    tabs: {main: true, options: false, stats: false}, // This is the tab visibility array, from left to right on the page (the first one is the main, the second is the options, etc.).
+}
+
+var starterPlayer = startPlayer()
+
 var lastUpdate = Date.now()
 
-/* <div id="m1">
-<div id="minfo1" class="milestone mt1">
-<div class="mtitle" id="m1title"></div>
-<div class="mdesc" id="m1desc"></div>
-<br id="m1br">
-<div class="meff" id="m1eff"></div>
-<div class="mamt" id="m1amt"></div>
-<div class="mtype" id="m1type"></div>
-</div>
-<div id="minv1" class="mileinv mt1">
-<p id=>a</p>
-</div>
-</div> */
-
 function init() {
+    if (localStorage.player != undefined) {
+        player = JSON.parse(localStorage.player)
+    } else {
+        player = starterPlayer
+    }
+
     for (let i = 1; i < Object.keys(player.mainUpg.milestones).length; i++) {
         let m = player.mainUpg.milestones[i]
         document.getElementById("mscontain").innerHTML += `<div id="m${i}" style='display: inline-block'><div id=minfo${i} class="milestone mt${m.type} mttc${m.type}"><div class="mtitle" id="m${i}title"></div><div class="mdesc" id="m${i}desc"></div><br id="m${i}br"><div class="meff" id="m${i}eff"></div><div class="mamt" id="m${i}amt"></div><div class="mtype" id="m${i}type"></div></div><div id="minv${i}" class="mileinv mti"><p class="mttci" id="minv${i}desc"></p><p class="mttci" span="mtie${i}">+0.15 → <span class="emp"><b>+0.25</b></span></p><br><button class="invButton">Invest 4 AP.</button></div></div></div>`
-        document.getElementById("m" + i + "title").innerHTML = `Reach level ${m.reqlevel} to unlock this milestone.`
+        document.getElementById("m" + i + "title").innerHTML = `Reach level ${new ex(m.reqlevel)} to unlock this milestone.`
         document.getElementById("minv" + i + "desc").innerHTML = "Unlock this milestone to invest."
         document.getElementById("m" + i + "br").style.display = "none"
         document.getElementById("m" + i).style.display = "none"
@@ -130,9 +127,9 @@ function buyMUpg() {
 }
 
 function changeTab(tab) {
-    if (!player.other.tabs[tab]) {
-        Object.keys(player.other.tabs).forEach(v => player.other.tabs[v] = false)
-        player.other.tabs[tab] = true 
+    if (!notPlayer.tabs[tab]) {
+        Object.keys(notPlayer.tabs).forEach(v => notPlayer.tabs[v] = false)
+        notPlayer.tabs[tab] = true 
     }
 }
 
@@ -167,20 +164,50 @@ function increment(d) {
     player.currencies.points.total = new ex(player.currencies.points.total).add(pointGen().mul(d))
 }
 
-function dm(n) {
+function dm(n) { // !! USE OBJECT.ASSIGN TO MAKE FUTURE-PROOF
     if (n === 1) {
         var exp = window.btoa(JSON.stringify(player))
         navigator.clipboard.writeText(exp).then(() => {})
-
         const alert = document.createElement("p")
-        alert.innerText = "\nExport text has been copied to clipboard."
+        alert.innerText = "\nExported!"
         alert.classList.add("cent")
-        document.body.appendChild(alert)
+        document.body.children.main.children.optionsTab.appendChild(alert)
         setTimeout(function() {
             alert.remove()
-        }, 1700)
+        }, 1000)
     } else {
-        player = JSON.parse(atob(document.getElementById("importbox").value))
+        player = Object.assign(starterPlayer, JSON.parse(atob(document.getElementById("importbox").value)))
+        const alert = document.createElement("p")
+        alert.innerText = "\nImported!"
+        alert.classList.add("cent")
+        document.body.children.main.children.optionsTab.appendChild(alert)
+        setTimeout(function() {
+            alert.remove()
+        }, 1000)
+    }
+}
+
+function save(auto = false) {
+    if (auto) {
+        if (player.autosaving == true) {
+            localStorage.setItem('player', JSON.stringify(player))
+        }
+    } else {
+        localStorage.setItem('player', JSON.stringify(player))
+    }
+}
+
+function saveToggle() {
+    player.autosaving = (player.autosaving) ? false : true
+}
+
+function hardReset() {
+    if (confirm("Despite there not being much to reset, you are about to hard reset the game. Press OK to confirm.")) {
+        if (localStorage.player != undefined) {
+            localStorage.removeItem('player')
+        }
+
+        location.reload()
     }
 }
 
@@ -204,7 +231,7 @@ function update() {
             m = player.mainUpg.milestones[i]
             document.getElementById("m" + i + "title").innerHTML = `Milestone ${i}`
             document.getElementById("m" + i + "desc").innerHTML = `${m.desc}<br/>`
-            document.getElementById("m" + i + "eff").innerHTML = `Currently: ${m.op}${format(m.effect)}`
+            document.getElementById("m" + i + "eff").innerHTML = `Currently: ${m.op}${format(new ex(m.effect))}`
             document.getElementById("m" + i + "amt").innerHTML = `You have gotten this milestone ${(m.amt.eq(1) ? " once." : m.amt + " times.")}`
             document.getElementById("m" + i + "br").style.display = "" 
             switch (m.type) {
@@ -237,12 +264,14 @@ function update() {
     document.getElementById('points').innerHTML = format(player.currencies.points.amount)
     document.getElementById('pps').innerHTML = format(pointGen())
     document.getElementById('atpoints').innerHTML = format(player.currencies.points.total)
-    document.getElementById('bestpoints').innerHTML = format(player.currencies.points.best)
+    document.getElementById('bestpoints').innerHTML = format(new ex(player.currencies.points.best))
     document.getElementById('timeplayed').innerHTML = formattime(player.stats.timeplayed)
-    for (const a in player.other.tabs) {
-        document.getElementById(a + "Tab").style.display = (player.other.tabs[a]) ? "revert" : "none"
+    for (const a in notPlayer.tabs) {
+        document.getElementById(a + "Tab").style.display = (notPlayer.tabs[a]) ? "revert" : "none"
     }
-    
+
+    document.getElementById('saveToggle').innerHTML = (player.autosaving) ? "ON → OFF" : "OFF → ON"
+
     player.stats.timeplayed += 1/20
 }
 
@@ -256,3 +285,5 @@ window.setInterval(function() {
 
     lastUpdate = Date.now()
 }, 1000/20)
+
+window.setInterval(save, 60000, true)

@@ -218,24 +218,6 @@ br {
     color: black;
 }
 
-.dmbutton {
-    color: white;
-    border: 2px solid white;
-    border-radius: 2px;
-    background-color: black;
-    width: 100px;
-    height: 40px;
-    font-family: Source Code Pro;
-    transition-duration: 150ms;
-    cursor: pointer;
-    font-size: 20px
-}
-
-.dmbutton:hover {
-    color: black;
-    background-color: white;
-}
-
 .textBox {
     background-color: rgb(26, 26, 26);
     border: 2px solid white;
@@ -262,3 +244,51 @@ br {
     background-color: white;
     color: rgb(48, 48, 48);
 }
+
+.optButton, .optButton2 {
+    font-family: "Source Code Pro";
+    background-color: rgb(0, 0, 0);
+    border: 2px solid;
+    border-radius: 2px;
+    min-width: 0px;
+    height: 40px;
+    transition-duration: 150ms;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0px 10px 0px 10px;
+}
+
+.optButton:hover {
+    background-color: rgb(54, 54, 54)
+}
+
+.optButton:active {
+    background-color: rgb(41, 41, 41)
+}
+
+.optButton {
+    border-color: white;
+    color: white;
+}
+
+.optButton:hover {
+    background-color: rgb(54, 54, 54)
+}
+
+.optButton:active {
+    background-color: rgb(41, 41, 41)
+}
+
+.optButton2 {
+    border-color: rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
+}
+
+.optButton2:hover {
+    background-color: rgb(54, 0, 0)
+}
+
+.optButton2:active {
+    background-color: rgb(41, 0, 0)
+}
+
