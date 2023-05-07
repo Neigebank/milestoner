@@ -4,7 +4,7 @@ function startPlayer() {
     return {
         currencies: {
             points: {
-                amount: new ex("10"), // How many points.
+                amount: new ex("0"), // How many points.
                 base: new ex("1"),   // Base points gain.
                 mult: new ex("1"),   // Multiplies points gain.
                 pps: new ex("0"),    // Points per second.
@@ -58,7 +58,7 @@ function startPlayer() {
                 },
 
                 4: {
-                    desc: "After level 10, multiply overall point generation by &times1.14 every 5 levels.",
+                    desc: "After level 10, multiply overall point generation by &times1.15 every 5 levels.",
                     type: 2,
                     reqlevel: new ex("10"),
                     interval: new ex("5"),
@@ -88,7 +88,7 @@ function startPlayer() {
             timeplayed: 0, // In seconds.
         },
 
-        autosaving: false,
+        autosaving: true,
     }
 }
 
@@ -250,7 +250,7 @@ function update() {
 
     // List of all the milestone effects and their formulas.
     player.mainUpg.milestones[3].effect = ex.pow(1.2, player.mainUpg.milestones[3].amt)
-    player.mainUpg.milestones[4].effect = ex.pow(1.14, player.mainUpg.milestones[4].amt)
+    player.mainUpg.milestones[4].effect = ex.pow(1.15, player.mainUpg.milestones[4].amt)
     player.mainUpg.milestones[1].effect = ex.mul(player.mainUpg.milestones[1].amt, 0.15).mul(player.mainUpg.milestones[3].effect)
     player.mainUpg.milestones[2].effect = ex.mul(player.mainUpg.milestones[2].amt, 0.35)
     player.mainUpg.milestones[5].effect = ex.mul(player.mainUpg.milestones[5].amt, 2)
