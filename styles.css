@@ -40,6 +40,11 @@ br {
     font-size: 50%;
 }
 
+a {
+    color: rgb(64, 78, 237);
+    text-decoration: none;
+}
+
 #points {
     font-size: 28px;
     -webkit-text-stroke: 1px;
