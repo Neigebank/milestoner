@@ -11,11 +11,6 @@ function startPlayer() {
                 total: new ex("0"),
                 best: new ex("0"),
             },
-
-            augmentation: { // Next update...
-                amount: new ex("4"),
-
-            }
         },
 
         mainUpg: {
@@ -84,7 +79,6 @@ function startPlayer() {
         },
 
         stats: {
-            augmentations: 0, // Amount of times you augmented. Not an ExpantaNum. Next update... (You can decide to change this to a value that isn't 0 to see what I'm working on. Just use "player.stats.aumgentations = 1" or something)
             timeplayed: 0, // In seconds.
         },
 
@@ -92,7 +86,7 @@ function startPlayer() {
     }
 }
 
-var notPlayer = {
+var notPlayer = { // Stuff that doesn't change when you export/import, or load and save.
     tabs: {main: true, options: false, stats: false}, // This is the tab visibility array, from left to right on the page (the first one is the main, the second is the options, etc.).
 }
 
@@ -109,12 +103,10 @@ function init() {
 
     for (let i = 1; i < Object.keys(player.mainUpg.milestones).length; i++) {
         let m = player.mainUpg.milestones[i]
-        document.getElementById("mscontain").innerHTML += `<div id="m${i}" style='display: inline-block'><div id=minfo${i} class="milestone mt${m.type} mttc${m.type}"><div class="mtitle" id="m${i}title"></div><div class="mdesc" id="m${i}desc"></div><br id="m${i}br"><div class="meff" id="m${i}eff"></div><div class="mamt" id="m${i}amt"></div><div class="mtype" id="m${i}type"></div></div><div id="minv${i}" class="mileinv mti"><p class="mttci" id="minv${i}desc"></p><p class="mttci" span="mtie${i}">+0.15 → <span class="emp"><b>+0.25</b></span></p><br><button class="invButton">Invest 4 AP.</button></div></div></div>`
+        document.getElementById("mscontain").innerHTML += `<div id="m${i}" style='display: inline-block'><div id=minfo${i} class="milestone mt${m.type} mttc${m.type}"><div class="mtitle" id="m${i}title"></div><div class="mdesc" id="m${i}desc"></div><br id="m${i}br"><div class="meff" id="m${i}eff"></div><div class="mamt" id="m${i}amt"></div><div class="mtype" id="m${i}type"></div></div></div></div>`
         document.getElementById("m" + i + "title").innerHTML = `Reach level ${new ex(m.reqlevel)} to unlock this milestone.`
-        document.getElementById("minv" + i + "desc").innerHTML = "Unlock this milestone to invest."
         document.getElementById("m" + i + "br").style.display = "none"
         document.getElementById("m" + i).style.display = "none"
-        document.getElementById("minv" + i).style.display = "none"
     } 
 }
 
@@ -167,7 +159,13 @@ function increment(d) {
 function dm(n) { // !! USE OBJECT.ASSIGN TO MAKE FUTURE-PROOF
     if (n === 1) {
         var exp = window.btoa(JSON.stringify(player))
-        navigator.clipboard.writeText(exp).then(() => {})
+        const el = document.createElement("textarea");
+        el.value = str;
+        document.body.appendChild(el);
+        el.select();
+        el.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        document.body.removeChild(el);
         const alert = document.createElement("p")
         alert.innerText = "\nExported!"
         alert.classList.add("cent")
@@ -217,13 +215,11 @@ function update() {
 
     for (let i = 1; i < Object.keys(player.mainUpg.milestones).length; i++) {
         let m = player.mainUpg.milestones[i]
-        if (!m.unlocked) {document.getElementById("minfo" + i).classList.add("mslocked"); document.getElementById("minv" + i).classList.add("mslocked")} else {document.getElementById("minfo" + i).classList.remove("mslocked"); document.getElementById("minv" + i).classList.remove("mslocked")}
+        if (!m.unlocked) {document.getElementById("minfo" + i).classList.add("mslocked")} else {document.getElementById("minfo" + i).classList.remove("mslocked")}
         if (ex.gte(player.mainUpg.bght, m.reqlevel)) {
             if (!m.unlocked) {m.unlocked = true; player.mainUpg.milestones.shown.push(i)}
             m.amt = ex.floor(new ex(player.mainUpg.bght).sub(m.reqlevel).div(m.interval)).add(1) 
         }
-
-        document.getElementById("minv" + i).style.display = (player.stats.augmentations == 0) ? "none" : ""
     }
 
     if (player.mainUpg.milestones.shown.length != 0) {
@@ -239,7 +235,6 @@ function update() {
                 case 2: {document.getElementById("m" + i + "type").innerHTML = "MULTIPLIER"; break}
                 default: {document.getElementById("m" + i + "type").innerHTML = "ERROR_NO_TYPE"}
             }
-            document.getElementById("minv" + i + "desc").innerHTML = `Invest all your augmentation points (${player.currencies.augmentation.amount}) into this milestone.`  
         }
     }
 
